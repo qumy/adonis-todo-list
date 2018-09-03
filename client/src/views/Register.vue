@@ -13,7 +13,7 @@
           type="password"
           autocomplete="new-password"
         ></v-text-field>
-        <v-btn color="green" dark>
+        <v-btn color="cyan" dark>
           <v-icon>account_circle</v-icon>
         </v-btn>
       </v-flex>
