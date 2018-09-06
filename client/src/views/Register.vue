@@ -3,12 +3,14 @@
     <v-layout row wrap>
       <v-flex xs6 offset-xs3>
         <h1>Register</h1>
+
         <v-text-field
           label="Email"
           placeholder="Email"
           :value="registerEmail"
           @input="setRegisterEmail"
         ></v-text-field>
+
         <v-text-field
           label="Password"
           placeholder="Password"
@@ -17,7 +19,12 @@
           :value="registerPassword"
           @input="setRegisterPassword"
         ></v-text-field>
-        <v-btn color="cyan" dark>
+
+        <v-alert type="error" :value="registerError">
+          {{registerError}}
+        </v-alert>
+
+        <v-btn color="cyan" dark @click="register">
           <v-icon>account_circle</v-icon>Register
         </v-btn>
       </v-flex>
