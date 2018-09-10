@@ -6,20 +6,52 @@
         <v-text-field
           label="Email"
           placeholder="Email"
+          :value="loginEmail"
+          @input="setLoginEmail"
         ></v-text-field>
+
         <v-text-field
           label="Password"
           placeholder="Password"
           type="password"
           autocomplete="new-password"
+          :value="loginPassword"
+          @input="setLoginPassword"
         ></v-text-field>
-        <v-btn color="cyan" dark>
-          <v-icon>account_circle</v-icon>
+
+        <v-alert type="error" :value="loginError">
+          {{loginError}}
+        </v-alert>
+
+        <v-btn color="cyan" dark @click="login">
+          <v-icon class="mr-2">fingerprint</v-icon>
+          Login
         </v-btn>
+
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
-<style>
-</style>
+<script>
+import { mapState, mapMutations, mapActions } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState('authentication', [
+      'loginEmail',
+      'loginPassword',
+      'loginError',
+    ]),
+  },
+  methods: {
+    ...mapMutations('authentication', [
+      'setLoginEmail',
+      'setLoginPassword',
+    ]),
+    ...mapActions('authentication', [
+      'login',
+    ]),
+  },
+};
+</script>

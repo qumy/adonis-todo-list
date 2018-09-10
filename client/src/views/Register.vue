@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 
 export default {
   computed: {
@@ -43,6 +43,9 @@ export default {
     ...mapMutations('authentication', [
       'setRegisterEmail',
       'setRegisterPassword',
+    ]),
+    ...mapActions('authentication', [
+      'register',
     ]),
   },
 };
