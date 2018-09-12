@@ -45,11 +45,19 @@ export default {
       commit('setToken', null);
       router.push('/login');
     },
-    register({ state }) {
+    register({ commit, state }) {
+      commit('setLoginError', null);
       return HTTP().post('/auth/register', {
         email: state.registerEmail,
         password: state.registerPassword,
-      });
+      })
+        .then(({ data }) => {
+          commit('setToken', data.token);
+          router.push('/');
+        })
+        .catch(() => {
+          commit('setRegisterError', 'An error has occured trying to login.');
+        });
     },
     login({ commit, state }) {
       commit('setLoginError', null);
