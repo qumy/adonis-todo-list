@@ -1,31 +1,46 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs4>
-        <Projects></Projects>
-      </v-flex>
-
-      <v-flex xs8 class="pl-4" v-if="currentProject">
-        <Tasks></Tasks>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <Panel title="Projects">
+    <div
+      class="project mt-2"
+      v-for="project in projects"
+      :key="project.id"
+    >
+      <EditableRecord
+        :isEditMode="project.isEditMode"
+        :title="project.title"
+        @onInput="setProjectTitle({
+          project,
+          title: $event,
+        })"
+        @onEdit="setEditMode(project)"
+        @onSave="saveProject(project)"
+      />
+    </div>
+    <CreateRecord
+      placeholder="My project name...."
+      @onInput="setNewProjectName"
+      :value="newProjectName"
+      @create="createProject"
+    />
+  </Panel>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
-import Tasks from '@/components/Tasks.vue';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: {
-    Tasks,
-  },
   computed: {
     ...mapState('projects', [
       'currentProject',
     ]),
     ...mapGetters('authentication', [
       'isLoggedIn',
+    ]),
+  },
+  methods: {
+    ...mapActions('projects', [
+      'createProject',
+      'saveProject',
     ]),
   },
 };
