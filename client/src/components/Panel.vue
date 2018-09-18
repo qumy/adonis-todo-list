@@ -4,7 +4,7 @@
       flat
       dense
       dark
-      color="green"
+      color="cyan"
     >
       <v-toolbar-title>
         {{title}}
