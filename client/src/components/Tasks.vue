@@ -6,13 +6,23 @@
       :key="task.id"
     >
     </div>
+    <CreateRecord
+      placeholder="I need to..."
+      @onInput="setNewTaskName"
+      :value="newTaskName"
+      @create="createTask"
+    />
   </Panel>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
+import CreateRecord from '@/components/CreateRecord.vue';
 
 export default {
+  components: {
+    CreateRecord,
+  },
   computed: {
     ...mapState('tasks', [
       'tasks',
@@ -20,6 +30,17 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions('tasks', [
+      'createTask',
+      'saveTask',
+    ]),
+    ...mapMutations('tasks', [
+      'setNewTaskName',
+    ]),
+    checkClicked(task) {
+      this.toggleCompleted(task);
+      this.saveTask(task);
+    },
   },
 };
 </script>
